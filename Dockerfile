@@ -4,7 +4,7 @@
 FROM abiosoft/caddy:builder as builder
 
 ARG version="0.11.0"
-ARG plugins="docker,http.cache,http.cors,http.datadog,http.expires,http.filemanager,http.filter,http.git,http.minify,http.nobots,http.prometheus,http.ratelimit,http.realip,http.restic,tls.dns.cloudflare"
+ARG plugins="git,gzip,minify,cors,realip,expires,cache,docker,datadog,redir"
 
 # process wrapper
 RUN go get -v github.com/abiosoft/parent
