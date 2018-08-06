@@ -4,7 +4,7 @@
 FROM abiosoft/caddy:builder as builder
 
 ARG version="0.11.0"
-ARG plugins="git,gzip,minify,cors,realip,expires,cache,docker,datadog,redir"
+ARG plugins="git,cloudflare,docker,filemanager,minify,cache,cors,realip,expires"
 
 # process wrapper
 RUN go get -v github.com/abiosoft/parent
@@ -15,7 +15,7 @@ RUN VERSION=${version} PLUGINS=${plugins} /bin/sh /usr/bin/builder.sh
 # Final stage
 #
 FROM alpine:3.8
-LABEL maintainer "Abiola Ibrahim <abiola89@gmail.com>"
+LABEL maintainer "André Van Dal <andre.vandal@lenyeg.com.br>"
 
 ARG version="0.11.0"
 LABEL caddy_version="$version"
@@ -44,4 +44,3 @@ COPY --from=builder /go/bin/parent /bin/parent
 
 ENTRYPOINT ["/bin/parent", "caddy"]
 CMD ["--conf", "/etc/Caddyfile", "--log", "stdout", "--agree=$ACME_AGREE"]
-
